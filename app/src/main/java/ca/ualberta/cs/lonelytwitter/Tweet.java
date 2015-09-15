@@ -1,6 +1,7 @@
 package ca.ualberta.cs.lonelytwitter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -9,6 +10,7 @@ import java.util.Date;
 public abstract class Tweet implements Tweetable {
     private String text;
     private Date date;
+    private ArrayList<Mood> moods;
 
     public Tweet(String text, Date date) throws IOException {
         this.setText(text);
