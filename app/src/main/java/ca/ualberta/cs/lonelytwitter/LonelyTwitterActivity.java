@@ -13,6 +13,7 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -52,6 +53,16 @@ public class LonelyTwitterActivity extends Activity {
 				adapter.notifyDataSetChanged();
 			}
 		});
+
+        Button viewSavedButton = (Button) findViewById(R.id.viewSavedBtn);
+        final Context cxt = this;
+        viewSavedButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                saveInFile();
+                Intent i = new Intent(cxt, SavedListActivity.class);
+                startActivity(i);
+            }
+        });
 	}
 
 	@Override

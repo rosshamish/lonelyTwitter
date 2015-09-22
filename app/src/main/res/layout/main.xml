@@ -43,4 +43,11 @@
         android:layout_height="wrap_content"
         android:text="@string/save" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Saved"
+        android:id="@+id/viewSavedBtn"
+        android:layout_gravity="center_horizontal" />
+
 </LinearLayout>
