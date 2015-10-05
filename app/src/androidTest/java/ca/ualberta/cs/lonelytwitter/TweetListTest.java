@@ -7,9 +7,33 @@ import junit.framework.TestCase;
 /**
  * Created by joshua2 on 9/28/15.
  */
-public class TweetListTest extends ActivityInstrumentationTestCase2 {
+public class TweetListTest extends ActivityInstrumentationTestCase2 implements MyObserver {
+    private Boolean wasNotified = Boolean.FALSE;
+
     public TweetListTest() {
         super(ca.ualberta.cs.lonelytwitter.LonelyTwitterActivity.class);
+    }
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        wasNotified = Boolean.FALSE;
+    }
+
+    public void testAddObserver() {
+        TweetList list = new TweetList();
+        list.addObserver(this);
+        list.add(new NormalTweet("test"));
+        assertTrue(wasNotified);
+    }
+
+    public void testTweetObserver() {
+        TweetList list = new TweetList();
+        list.addObserver(this);
+        Tweet tweet = new NormalTweet("test");
+        list.add(tweet);
+        tweet.setText("different");
+        assertTrue(wasNotified);
     }
 
     public void testAddTweet() {
@@ -30,5 +54,10 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
         Tweet tweet = new NormalTweet("test");
         list.add(tweet);
         assertTrue(list.contains(tweet));
+    }
+
+
+    public void notify(MyObservable obj) {
+        wasNotified = true;
     }
 }
