@@ -26,11 +26,11 @@ import com.google.gson.reflect.TypeToken;
 
 public class LonelyTwitterActivity extends Activity {
 
-	private static final String FILENAME = "file.sav";
-	private EditText bodyText;
-	private ListView oldTweetsList;
-	private ArrayList<Tweet> tweets;
-	private ArrayAdapter<Tweet> adapter;
+	private static final String FILENAME = "file.sav"; // model
+	private EditText bodyText; // view
+	private ListView oldTweetsList; // view
+	private ArrayList<Tweet> tweets; // model
+	private ArrayAdapter<Tweet> adapter; // controller
 
 
 	/** Called when the activity is first created. */
@@ -38,19 +38,22 @@ public class LonelyTwitterActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.main); // view
 
-		bodyText = (EditText) findViewById(R.id.body);
-		Button saveButton = (Button) findViewById(R.id.save);
-		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
+		bodyText = (EditText) findViewById(R.id.body); // view
+		Button saveButton = (Button) findViewById(R.id.save); // controller (b/c onClick method)
+		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList); // view
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
+				// controller
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
+				// model
 				tweets.add(new NormalTweet(text));
 				saveInFile();
+				// controller
 				adapter.notifyDataSetChanged();
 			}
 		});
@@ -60,15 +63,17 @@ public class LonelyTwitterActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		loadFromFile();
+		loadFromFile(); // model
 		if (tweets == null) {
 			throw new RuntimeException();
 		}
-		adapter = new ArrayAdapter<Tweet>(this, R.layout.list_item, tweets);
-		oldTweetsList.setAdapter(adapter);
+		adapter = new ArrayAdapter<Tweet>(this, R.layout.list_item, tweets); // controller
+		oldTweetsList.setAdapter(adapter); // controller
 	}
 
 	private void loadFromFile() {
+		// model
+
 		try {
 			FileInputStream fis = openFileInput(FILENAME);
 			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
@@ -85,6 +90,8 @@ public class LonelyTwitterActivity extends Activity {
 	}
 	
 	private void saveInFile() {
+		// model
+		
 		try {
 			FileOutputStream fos = openFileOutput(FILENAME,
 					0);
