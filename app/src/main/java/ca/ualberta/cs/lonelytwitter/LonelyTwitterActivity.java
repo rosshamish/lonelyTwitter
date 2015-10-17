@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -84,6 +85,9 @@ public class LonelyTwitterActivity extends Activity implements MyObserver {
 
         oldTweetsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               Tweet t = (Tweet) parent.getAdapter().getItem(position);
+               ApplicationState.getInstance().setEditingTweet(t);
+
                Intent intent = new Intent(activity, EditTweetActivity.class);
                startActivity(intent);
            }
